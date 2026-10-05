@@ -1,0 +1,9 @@
+
+
+
+editeur d'entete
+editeur visuel
+generateur .mo
+possibiliter get les valeur par fichier php,
+selectionneur pour y transferer les strings a vouloir traduire
+remplacement de __() dans wordpress

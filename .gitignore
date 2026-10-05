@@ -1,5 +1,18 @@
-out
-dist
-node_modules
-.vscode-test/
+# Dependencies
+node_modules/
+
+# Build outputs
+out/
+dist/
 *.vsix
+
+# VS Code test runtime
+.vscode-test/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*

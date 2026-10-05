@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Security-Policy" content="
+			default-src 'none';
+			style-src {{CSP_SOURCE}};
+			script-src {{CSP_SOURCE}};
+		">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PO Editor</title>
+        <link rel="stylesheet" href="{{CSS_URI}}">
+    </head>
+
+    <body>
+        <header class="toolbar">
+            <div class="toolbar-left">
+                <div class="brand">
+                    <span class="brand-title">PO Editor</span>
+                    <span id="document-status" class="document-status">
+                        New PO file
+                    </span>
+                </div>
+            </div>
+            <div class="toolbar-actions">
+                <button id="new-button" class="button secondary">
+                    New
+                </button>
+                <button id="open-button" class="button secondary">
+                    Open
+                </button>
+                <button id="build-mo-button" class="button secondary"
+                    title="Save the PO first if necessary, then create the matching MO file.">
+                    Build MO
+                </button>
+                <button id="save-button" class="button primary">
+                    Create PO
+                </button>
+            </div>
+        </header>
+        <main class="page">
+            <section class="panel">
+                <div class="section-header">
+                    <div>
+                        <h1>PO Header</h1>
+                        <p>
+                            Project information and translation metadata.
+                        </p>
+                    </div>
+                </div>
+                <div class="header-grid">
+                    <label class="field">
+                        <span>Project-Id-Version</span>
+                        <input id="project-id-version" type="text" autocomplete="off">
+                    </label>
+                    <label class="field">
+                        <span>Report-Msgid-Bugs-To</span>
+                        <input id="report-msgid-bugs-to" type="text" autocomplete="off">
+                    </label>
+                    <label class="field">
+                        <span>POT-Creation-Date</span>
+                        <input id="pot-creation-date" type="datetime-local">
+                    </label>
+                    <label class="field">
+                        <span>PO-Revision-Date</span>
+                        <input id="po-revision-date" type="datetime-local">
+                    </label>
+                    <label class="field">
+                        <span>Last Translator</span>
+                        <input id="last-translator-name" type="text" placeholder="Your name" autocomplete="name">
+                    </label>
+                    <label class="field">
+                        <span>Translator Email</span>
+                        <input id="last-translator-email" type="email" placeholder="name@example.com"
+                            autocomplete="email">
+                    </label>
+                    <label class="field">
+                        <span>Language Team</span>
+                        <input id="language-team" type="text">
+                    </label>
+                    <label class="field">
+
+                        <span>Target language</span>
+
+                        <small>
+                            The language you are translating into.
+                        </small>
+
+                        <select id="language">
+
+                            <option value="fr_CA">
+                                French (Canada) — fr_CA
+                            </option>
+
+                            <option value="fr">
+                                French — fr
+                            </option>
+
+                            <option value="en_CA">
+                                English (Canada) — en_CA
+                            </option>
+
+                            <option value="en">
+                                English — en
+                            </option>
+
+                            <option value="es">
+                                Spanish — es
+                            </option>
+
+                            <option value="de">
+                                German — de
+                            </option>
+
+                            <option value="it">
+                                Italian — it
+                            </option>
+
+                            <option value="pt">
+                                Portuguese — pt
+                            </option>
+
+                            <option value="pt_BR">
+                                Portuguese (Brazil) — pt_BR
+                            </option>
+
+                            <option value="nl">
+                                Dutch — nl
+                            </option>
+
+                            <option value="pl">
+                                Polish — pl
+                            </option>
+
+                            <option value="cs">
+                                Czech — cs
+                            </option>
+
+                            <option value="sk">
+                                Slovak — sk
+                            </option>
+
+                            <option value="ru">
+                                Russian — ru
+                            </option>
+
+                            <option value="uk">
+                                Ukrainian — uk
+                            </option>
+
+                            <option value="ro">
+                                Romanian — ro
+                            </option>
+
+                            <option value="sl">
+                                Slovenian — sl
+                            </option>
+
+                            <option value="ar">
+                                Arabic — ar
+                            </option>
+
+                            <option value="ja">
+                                Japanese — ja
+                            </option>
+
+                            <option value="ko">
+                                Korean — ko
+                            </option>
+
+                            <option value="zh_CN">
+                                Chinese (Simplified) — zh_CN
+                            </option>
+
+                            <option value="zh_TW">
+                                Chinese (Traditional) — zh_TW
+                            </option>
+
+                            <option value="__custom__">
+                                Other...
+                            </option>
+
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Text Domain</span>
+                        <small>
+                            Useful for WordPress plugins and themes.
+                        </small>
+                        <input id="text-domain" type="text" placeholder="my-plugin" autocomplete="off"> </label>
+                    <label id="custom-language-field" class="field hidden">
+                        <span>Custom Language</span>
+                        <input id="custom-language" type="text" placeholder="example: nl_BE">
+                    </label>
+                    <label class="field field-full">
+                        <span>Plural-Forms</span>
+                        <input id="plural-forms" type="text" readonly>
+                    </label>
+                    <label id="custom-plural-field" class="field field-full hidden">
+                        <span>Custom Plural-Forms</span>
+                        <input id="custom-plural-forms" type="text" placeholder="nplurals=2; plural=(n != 1);">
+                    </label>
+                </div>
+            </section>
+            <section class="panel translations-panel">
+                <div class="section-header">
+                    <div>
+                        <h1>
+                            Translations
+                            <span id="entry-count" class="count">
+                                0
+                            </span>
+                        </h1>
+                        <p>
+                            Original strings and their translations.
+                        </p>
+                    </div>
+                    <button id="add-entry-button" class="button primary">
+                        + Translation
+                    </button>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="number-column">
+                                    #
+                                </th>
+                                <th>
+                                    Original
+                                </th>
+                                <th>
+                                    Translation
+                                </th>
+                                <th class="action-column"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="entries"></tbody>
+                    </table>
+
+                    <div id="empty-state" class="empty-state">
+                        <div class="empty-title">
+                            No translations yet
+                        </div>
+                        <div class="empty-description">
+                            Add your first translation above.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="notification" class="notification hidden" role="status" aria-live="polite"></div>
+
+        <script src="{{JS_URI}}"></script>
+    </body>
+
+</html>
